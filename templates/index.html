@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Loan Calculator</h1>
+    <form method="post">
+        <label for="suma_imprumutata">Loan Amount:</label>
+        <input type="number" name="suma_imprumutata" required>
+
+        <label for="dobanda_anuala">Annual Interest Rate (%):</label>
+        <input type="number" name="dobanda_anuala" step="0.01" required>
+
+        <label for="numar_rate">Number of Months:</label>
+        <input type="number" name="numar_rate" required>
+
+        <input type="submit" value="Calculate">
+    </form>
+
+{% if rezultat %}
+    <h2>Repayment Schedule:</h2>
+    <table>
+        <tr>
+            <th>Month</th>
+            <th>Monthly Payment (RON)</th>
+            <th>Interest (RON)</th>
+            <th>Principal (RON)</th>
+            <th>Remaining Balance (RON)</th>
+        </tr>
+        {% for linie in rezultat['amortizare'] %}
+        <tr>
+            <td>{{ linie[0] }}</td>
+            <td>{{ linie[1] }}</td>
+            <td>{{ linie[2] }}</td>
+            <td>{{ linie[3] }}</td>
+            <td>{{ linie[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+</body>
+</html>
